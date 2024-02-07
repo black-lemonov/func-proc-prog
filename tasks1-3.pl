@@ -100,8 +100,8 @@ grand_ma(X, Y):- parent(Z, Y), parent(X, Z), woman(X), true.
 %grand_ma_ver2(+X, +Y)
 grand_ma_ver2(X, Y):- mother(X, Z), mother(Z, Y), true.
 
-
-
+%grand_mas(+X)
+grand_mas(X):- mother(Y, X), mother(Z, Y), write(Z), nl, fail.
 
 
 

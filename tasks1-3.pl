@@ -49,6 +49,26 @@ parent(duhovlad,zlatomir).
 parent(zhdana,zdislava).
 parent(zhdana,zlatomir).
 
+% new facts
+grandparent(voeneg, svyatoslav).
+grandparent(voeneg, dobrozhir).
+grandparent(voeneg, bogomil).
+grandparent(voeneg, bozhedara).
+grandparent(voeneg, broneslava).
+grandparent(voeneg, veselina).
+grandparent(voeneg, zdislava).
+grandparent(voeneg, zlatomir).
+grandparent(goluba, svyatoslav).
+grandparent(goluba, dobrozhir).
+grandparent(goluba, bogomil).
+grandparent(goluba, bozhedara).
+grandparent(goluba, broneslava).
+grandparent(goluba, veselina).
+grandparent(goluba, zdislava).
+grandparent(goluba, zlatomir).
+
+
+
 
 men:- man(X), write(X), nl, fail.
 

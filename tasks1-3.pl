@@ -81,6 +81,12 @@ b_s(X, Y):- X \== Y, parent(Z, X), parent(Z, Y), true.
 b_s(X):- parent(Z, X), parent(Z, Y), X \== Y, woman(Z), write(Y), nl, fail.
 
 
+%father(+X, +Y)
+father(X, Y):- parent(X, Y), man(X), true.
+
+%father(+X)
+father(X):- parent(Y, X), man(Y), write(Y), !.
+
 
 
 

@@ -94,7 +94,8 @@ wife(X, Y):- parent(X, Z), parent(Y, Z), woman(X), man(Y), true.
 wife(X):- man(X), parent(X, Z), parent(Y, Z), woman(Y), write(Y), !.
 
 
-
+%grand_ma(+X, +Y)
+grand_ma(X, Y):- parent(Z, Y), parent(X, Z), woman(X), true.
 
 
 

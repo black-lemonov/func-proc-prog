@@ -91,7 +91,7 @@ father(X):- parent(Y, X), man(Y), write(Y), !.
 wife(X, Y):- parent(X, Z), parent(Y, Z), woman(X), man(Y), true.
 
 %wife(+X)
-wife(X):- man(X), parent(X, Z), parent(Y, Z), woman(Y), write(Y), !.
+wife(X):- parent(X, Z), parent(Y, Z), woman(Y), write(Y), !.
 
 
 

@@ -147,6 +147,9 @@ grand_pa_and_da_ver2(X, Y):- wife(Z, X), grand_ma(Z, Y), woman(Y), true.
 grand_pa_and_da_ver2(X, Y):- woman(X), grand_ma(Z, X), wife(Z, Y), true.
 
 
+%niece(+X, +Y)
+niece(X, Y):- parent(Z, Y), parent(Z, W), W \== X, daughter(X, W), true.
+
 
 
 

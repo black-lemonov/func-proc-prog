@@ -49,6 +49,41 @@ parent(duhovlad,zlatomir).
 parent(zhdana,zdislava).
 parent(zhdana,zlatomir).
 
+% new facts
+grandparent(voeneg, svyatoslav).
+grandparent(voeneg, dobrozhir).
+grandparent(voeneg, bogomil).
+grandparent(voeneg, bozhedara).
+grandparent(voeneg, broneslava).
+grandparent(voeneg, veselina).
+grandparent(voeneg, zdislava).
+grandparent(voeneg, zlatomir).
+grandparent(goluba, svyatoslav).
+grandparent(goluba, dobrozhir).
+grandparent(goluba, bogomil).
+grandparent(goluba, bozhedara).
+grandparent(goluba, broneslava).
+grandparent(goluba, veselina).
+grandparent(goluba, zdislava).
+grandparent(goluba, zlatomir).
+
+% daughter facts
+daughter(bratislava, voeneg).
+daughter(zhdana, voeneg).
+daughter(bratislava, goluba).
+daughter(zhdana, goluba).
+daughter(bozhedara, boguslav).
+daughter(bozhedara, bratislava).
+daughter(broneslava, velerad).
+daughter(veselina, velerad).
+daughter(broneslava, veslava).
+daughter(veselina, veslava).
+daughter(zdislava, duhovlad).
+daughter(zdislava, zhdana).
+
+
+
+
 
 men:- man(X), write(X), nl, fail.
 
@@ -91,18 +126,35 @@ father(X):- parent(Y, X), man(Y), write(Y), !.
 wife(X, Y):- parent(X, Z), parent(Y, Z), woman(X), man(Y), true.
 
 %wife(+X)
-wife(X):- parent(X, Z), parent(Y, Z), woman(Y), write(Y), !.
+wife(X):- man(X), parent(X, Z), parent(Y, Z), woman(Y), write(Y), !.
 
 
+%grand_ma(+X, +Y)
+grand_ma(X, Y):- parent(Z, Y), parent(X, Z), woman(X), true.
+
+%grand_ma_ver2(+X, +Y)
+grand_ma_ver2(X, Y):- mother(X, Z), mother(Z, Y), true.
+
+%grand_mas(+X)
+grand_mas(X):- mother(Y, X), mother(Z, Y), write(Z), nl, fail.
+
+%grand_pa_and_da(+X, +Y)
+grand_pa_and_da(X, Y):- grandparent(X, Y), man(X), woman(Y), true.
+grand_pa_and_da(X, Y):- grandparent(Y, X), man(Y), woman(X), true.
+
+%grand_pa_and_da_ver2(+X, +Y)
+grand_pa_and_da_ver2(X, Y):- wife(Z, X), grand_ma(Z, Y), woman(Y), true.
+grand_pa_and_da_ver2(X, Y):- woman(X), grand_ma(Z, X), wife(Z, Y), true.
 
 
+%niece(+X, +Y)
+niece(X, Y):- parent(Z, Y), parent(Z, W), W \== Y, daughter(X, W), true.
 
+%niece_ver2(+X, +Y)
+niece_ver2(X, Y):- b_s(Y, Z), daughter(X, Z), true.
 
-
-
-
-
-
+%nieces(+X)
+nieces(X):- parent(Z, X), parent(Z, Y), X \== Y, daughter(W, Y), write(W), nl, fail.
 
 
 

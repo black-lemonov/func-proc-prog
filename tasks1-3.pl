@@ -67,6 +67,21 @@ grandparent(goluba, veselina).
 grandparent(goluba, zdislava).
 grandparent(goluba, zlatomir).
 
+% daughter facts
+daughter(bratislava, voeneg).
+daughter(zhdana, voeneg).
+daughter(bratislava, goluba).
+daughter(zhdana, goluba).
+daughter(bozhedara, boguslav).
+daughter(bozhedara, bratislava).
+daughter(broneslava, velerad).
+daughter(veselina, velerad).
+daughter(broneslava, veslava).
+daughter(veselina, veslava).
+daughter(zdislava, duhovlad).
+daughter(zdislava, zhdana).
+
+
 
 
 
@@ -130,9 +145,6 @@ grand_pa_and_da(X, Y):- grandparent(Y, X), man(Y), woman(X), true.
 %grand_pa_and_da_ver2(+X, +Y)
 grand_pa_and_da_ver2(X, Y):- wife(Z, X), grand_ma(Z, Y), woman(Y), true.
 grand_pa_and_da_ver2(X, Y):- woman(X), grand_ma(Z, X), wife(Z, Y), true.
-
-
-
 
 
 

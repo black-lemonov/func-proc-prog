@@ -153,6 +153,9 @@ niece(X, Y):- parent(Z, Y), parent(Z, W), W \== Y, daughter(X, W), true.
 %niece_ver2(+X, +Y)
 niece_ver2(X, Y):- b_s(Y, Z), daughter(X, Z), true.
 
+%nieces(+X)
+nieces(X):- parent(Z, X), woman(Z), parent(Z, Y), X \== Y, daughter(W, Y), write(W), nl, fail.
+
 
 
 

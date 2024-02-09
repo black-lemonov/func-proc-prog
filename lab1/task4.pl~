@@ -158,7 +158,9 @@ question9(X9):-	write("Is simplicity your language main principle?"),nl,
 
 
 pr:-	question1(X1),question2(X2),question3(X3),question4(X4),
-		question5(X5),question6(X6),question7(X7),
+		question5(X5),question6(X6),question7(X7),question8(X8),
+                question9(X9),
 		high(X,X1),decl(X,X2),interpret(X,X3),oop(X,X4),
-		cross(X,X5),visual(X,X6),mobile(X,X7),
+		cross(X,X5),visual(X,X6),mobile(X,X7), performance(X, X8),
+                simplicity(X, X9),
 		write(X).

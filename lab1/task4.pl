@@ -8,6 +8,9 @@ high(c,1).
 high(asm,0).
 high(swift,1).
 high(javascript,1).
+high(perl,1).
+high(r,1).
+
 
 decl(ruby,0).
 decl(c_sharp,0).
@@ -19,6 +22,9 @@ decl(c,0).
 decl(asm,0).
 decl(swift,0).
 decl(javascript,0).
+decl(perl,0).
+decl(r,0).
+
 
 interpret(ruby,1).
 interpret(python,1).
@@ -30,6 +36,9 @@ interpret(c,0).
 interpret(asm,0).
 interpret(swift,0).
 interpret(javascript,1).
+interpret(perl,1).
+interpret(r,1).
+
 
 oop(ruby,3).
 oop(c_sharp,3).
@@ -41,6 +50,9 @@ oop(c,0).
 oop(asm,0).
 oop(swift,2).
 oop(javascript,2).
+oop(perl,2).
+oop(r,2).
+
 
 cross(ruby,1).
 cross(python,1).
@@ -52,6 +64,9 @@ cross(c_sharp,0).
 cross(f_sharp,0).
 cross(swift,1).
 cross(javascript,1).
+cross(perl,1).
+cross(r,1).
+
 
 visual(c_sharp,3).
 visual(ruby,2).
@@ -63,6 +78,9 @@ visual(c,0).
 visual(asm,0).
 visual(swift,1).
 visual(javascript,1).
+visual(perl,2).
+visual(r,2).
+
 
 mobile(c_sharp,0).
 mobile(ruby,0).
@@ -74,6 +92,9 @@ mobile(c,0).
 mobile(asm,0).
 mobile(swift,1).
 mobile(javascript,1).
+mobile(perl,0).
+mobile(r,0).
+
 
 performance(c_sharp,0).
 performance(ruby,0).
@@ -85,18 +106,22 @@ performance(c,1).
 performance(asm,1).
 performance(swift,0).
 performance(javascript,0).
+performance(perl,0).
+performance(r,1).
+
 
 simplicity(ruby,0).
 simplicity(c_sharp,0).
 simplicity(python,1).
 simplicity(c_plu_plus,0).
 simplicity(f_sharp,0).
-simplicity(prolog,1).
+simplicity(prolog,0).
 simplicity(c,0).
 simplicity(asm,0).
 simplicity(swift,0).
 simplicity(javascript,0).
-
+simplicity(perl,0).
+simplicity(r,0).
 
 
 

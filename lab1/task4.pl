@@ -6,6 +6,8 @@ high(f_sharp,1).
 high(prolog,1).
 high(c,1).
 high(asm,0).
+high(swift,1).
+high(javascript, 1).
 
 decl(ruby,0).
 decl(c_sharp,0).
@@ -15,6 +17,8 @@ decl(f_sharp,1).
 decl(prolog,1).
 decl(c,0).
 decl(asm,0).
+decl(swift,0).
+decl(javascript, 0).
 
 interpret(ruby,1).
 interpret(python,1).
@@ -24,6 +28,8 @@ interpret(c_sharp,0).
 interpret(c_plu_plus,0).
 interpret(c,0).
 interpret(asm,0).
+interpret(swift,0).
+interpret(javascript, 1).
 
 oop(ruby,3).
 oop(c_sharp,3).
@@ -33,6 +39,8 @@ oop(f_sharp,1).
 oop(prolog,1).
 oop(c,0).
 oop(asm,0).
+oop(swift,2).
+oop(javascript, 2).
 
 cross(ruby,1).
 cross(python,1).
@@ -42,6 +50,8 @@ cross(c,1).
 cross(asm,1).
 cross(c_sharp,0).
 cross(f_sharp,0).
+cross(swift,1).
+cross(javascript, 1).
 
 visual(c_sharp,3).
 visual(ruby,2).
@@ -51,6 +61,8 @@ visual(f_sharp,2).
 visual(prolog,1).
 visual(c,0).
 visual(asm,0).
+visual(swift,1).
+visual(javascript, 1).
 
 mobile(c_sharp,0).
 mobile(ruby,0).
@@ -60,6 +72,8 @@ mobile(f_sharp,0).
 mobile(prolog,0).
 mobile(c,0).
 mobile(asm,0).
+mobile(swift,1).
+mobile(javascript, 1).
 
 question1(X1):-	write("Is your language high level?"),nl,
 				write("1. Yes"),nl,

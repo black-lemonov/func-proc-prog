@@ -142,6 +142,18 @@ question7(X7):-	write("Is your language for mobile phones?"),nl,
 				read(X7).
 
 
+question8(X8):-	write("Is your language for high-performance?"),nl,
+				write("2. Hahaha"),nl,
+                                write("1. Yes"),nl,
+				write("0. NO"),nl,
+				read(X8).
+
+question9(X9):-	write("Is simplicity your language main principle?"),nl,
+				write("1. Yes"),nl,
+				write("0. NO"),nl,
+				read(X9).
+
+
 
 
 

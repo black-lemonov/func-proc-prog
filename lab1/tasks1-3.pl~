@@ -151,34 +151,26 @@ grand_mas(X):- grand_ma(X, Y), write(Y), nl, fail.
 % DESCRIPTION:
 % checks if X and Y are grandpa and granddaughter and vice versa
 % using only facts
-grand_pa_and_da(X, Y):- man(X), parent(X, Z), parent(Z, Y), woman(Y); grand_pa_and_da(Y,X), true.
+grand_pa_and_da(X, Y):- man(X), parent(X, Z), parent(Z, Y), woman(Y), true.
+grand_pa_and_da(X,Y):-grand_pa_and_da(Y, X), true.
 
 
 % grand_pa_and_da_ver2(+X, +Y)
 % DESCRIPTION:
 % checks if X and Y are grandpa and granddaughter and vice versa
 % using other predicates
-grand_pa_and_da_ver2(X, Y):- wife(Z, X), grand_ma(Z, Y), woman(Y); grand_pa_and_da_ver2(Y, X), true.
+grand_pa_and_da_ver2(X, Y):- wife(Z, X), grand_ma(Z, Y), woman(Y), true.
+grand_pa_and_da_ver2(X, Y):- woman(X), grand_ma(Z, X), wife(Z, Y), true.
 
 
-% niece(+X, -Y)
-% DESCRIPTION:
-% checks if X is Y's niece
-% using only facts
-niece(X, Y):- parent(Z,Y), parent(Z,W), Y\==W, parent(W,X), woman(X), true.
+%niece(+X, +Y)
+niece(X, Y):- parent(Z, Y), parent(Z, W), W \== Y, daughter(X, W), true.
 
+%niece_ver2(+X, +Y)
+niece_ver2(X, Y):- b_s(Y, Z), daughter(X, Z), true.
 
-% niece_ver2(+X, +Y)
-% DESCRIPTION:
-% checks if X is Y's niece
-% using other predicates
-niece_ver2(X, Y):- b_s(Y, Z), parent(Z, X), woman(X), true.
-
-
-% nieces(+X)
-% DESCRIPTION:
-% writes all X's nieces
-nieces(X):- niece(Y,X), write(Y), nl, fail.
+%nieces(+X)
+nieces(X):- parent(Z, X), woman(Z), parent(Z, Y), X \== Y, daughter(W, Y), write(W), nl, fail.
 
 
 

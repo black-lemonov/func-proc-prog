@@ -83,3 +83,15 @@ read_n_find_sum:-
 sum_list_up([], 0).
 sum_list_up([El|Tail], Sum):- sum_list_up(Tail, CurSum), Sum is CurSum+El.
 
+
+% rm_w_sum_digits(+In, +Sum, ?Out)
+% removes el-s with sum digits = Sum
+% or checks if Out is In without such el-s 
+rm_w_sum_digits([], _, []):- !.
+rm_w_sum_digits([El|Tail], Sum, List):-
+	sum_digits_up(El, CurSum), CurSum == Sum,
+	rm_w_sum_digits(Tail, Sum, NewList), List = NewList.
+rm_w_sum_digits([El|Tail], Sum, List):-
+	sum_digits_up(El, CurSum), CurSum \== Sum,
+	rm_w_sum_digits(Tail, Sum, NewList), List = [El|NewList].
+

@@ -47,3 +47,17 @@ square_free_(N, CurX):- Sqr is CurX * CurX, N < Sqr, !.
 square_free_(N, CurX):- Sqr is CurX * CurX, N mod Sqr =:= 0, !, fail.
 square_free_(N, CurX):-
 	Sqr is CurX * CurX, NewX is CurX + 1, square_free_(N, NewX).
+
+% read_list(+N, -X)
+% N is list length
+% X is variable
+% reads input numbers
+% and saves them in X
+read_list(0, []).
+read_list(N, [El|Tail]):- read(El), NewN is N - 1, read_list(NewN, Tail).
+
+
+% write_list(+X)
+% writes list el-s separated by 1 space
+write_list([]).
+write_list([El|Tail]):- write(El), tab(1), write_list(Tail).

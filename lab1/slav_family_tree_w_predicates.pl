@@ -133,3 +133,28 @@ wife(X, Y):- parent(X, Z), parent(Y, Z), woman(X), man(Y), true.
 % write X's wife
 wife(X):- wife(Y, X), write(Y), !.
 
+
+% grand_ma(?X, ?Y)
+% DESCRIPTION:
+% checks if X is Y's grandmother using facts
+% or finds Y's grandmother
+grand_ma(X, Y):- parent(Z, Y), parent(X, Z), woman(X), true.
+
+
+% grand_ma_ver2(?X, ?Y)
+% DESCRIPTION:
+% checks if X is Y's grandmother using predicate
+% or finds Y's grandmother
+grand_ma_ver2(X, Y):- parent(Z,Y), mother(X,Z), true.
+
+
+% grand_mas(+X)
+% DESCRIPTION:
+% writes X's grandmothers using facts
+grand_mas(X):- grand_ma(Y, X), write(Y), nl, fail.
+
+
+% grand_mas_ver2(+X)
+% DESCRIPTION:
+% writes X's grandmothers using predicates
+grand_mas_ver2(X):- grand_ma_ver2(Y,X), write(Y), nl, fail.

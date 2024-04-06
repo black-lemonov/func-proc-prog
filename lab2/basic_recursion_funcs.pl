@@ -113,3 +113,26 @@ prod_digits_down_(N, CurProd, Prod):-
 	NewN is N // 10, I is N mod 10, NewProd is CurProd * I,
 	prod_digits_down_(NewN, NewProd, Prod). 
 
+
+% max_digit_not_mod3_up(+N, -Max)
+% finds max digit not divisible by 3
+max_digit_not_mod3_up(0, 0).
+max_digit_not_mod3_up(N, Max):- 
+	NewN is N // 10, I is N mod 10, I mod 3 =:= 0, NewI = 0, max_digit_not_mod3_up(NewN, NewMax),
+	max(NewMax, NewI, 0, Max).
+max_digit_not_mod3_up(N, Max):- 
+	NewN is N // 10, I is N mod 10, max_digit_not_mod3_up(NewN, NewMax),
+	max(NewMax, I, 0, Max).
+
+
+% max_digit_not_mod3_down(+N, -Max)
+% finds max digit not divisible by 3
+max_digit_not_mod3_down(N, Max):- max_digit_not_mod3_down_(N, 0, Max).
+max_digit_not_mod3_down_(0, CurMax, CurMax).
+max_digit_not_mod3_down_(N, CurMax, Max):- 
+	NewN is N // 10, I is N mod 10, I mod 3 =:= 0, NewI = 0, max(CurMax, NewI, 0, NewMax),
+	max_digit_not_mod3_down_(NewN, NewMax, Max).
+max_digit_not_mod3_down_(N, CurMax, Max):- 
+	NewN is N // 10, I is N mod 10, max(CurMax, I, 0, NewMax),
+	max_digit_not_mod3_down_(NewN, NewMax, Max).
+

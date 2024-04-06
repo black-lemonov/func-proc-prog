@@ -61,3 +61,25 @@ read_list(N, [El|Tail]):- read(El), NewN is N - 1, read_list(NewN, Tail).
 % writes list el-s separated by 1 space
 write_list([]).
 write_list([El|Tail]):- write(El), tab(1), write_list(Tail).
+
+
+% sum_list_down(+List, ?Sum)
+% finds or checks list sum with recursion down
+sum_list_down(List, Sum):- sum_list_down_(List, 0, Sum).
+sum_list_down_([], CurSum, CurSum).
+sum_list_down_([El|Tail], CurSum, Sum):-
+	NewSum is CurSum + El, sum_list_down_(Tail, NewSum, Sum).  
+
+
+% read_n_find_sum
+% reads list and finds its sum
+read_n_find_sum:-
+	write("length = "), read(Len), read_list(Len, X),
+	sum_list_down(X, Sum), write("sum is "), write(Sum). 
+
+
+% sum_list_up(+List, ?Sum)
+% finds or checks list sum with recursion up
+sum_list_up([], 0).
+sum_list_up([El|Tail], Sum):- sum_list_up(Tail, CurSum), Sum is CurSum+El.
+

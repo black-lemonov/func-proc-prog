@@ -121,3 +121,15 @@ father(X, Y):- parent(X, Y), man(X), true.
 % writes X's father
 father(X):- father(Y,X), write(Y), !.
 
+% wife(?X, +Y)
+% DESCRIPTION:
+% checks if X is Y's wife
+% or finds Y's wife
+wife(X, Y):- parent(X, Z), parent(Y, Z), woman(X), man(Y), true.
+
+
+% wife(+X)
+% DESCRIPTION:
+% write X's wife
+wife(X):- wife(Y, X), write(Y), !.
+

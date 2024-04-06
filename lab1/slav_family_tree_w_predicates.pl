@@ -158,3 +158,18 @@ grand_mas(X):- grand_ma(Y, X), write(Y), nl, fail.
 % DESCRIPTION:
 % writes X's grandmothers using predicates
 grand_mas_ver2(X):- grand_ma_ver2(Y,X), write(Y), nl, fail.
+
+
+% grand_pa_and_da(+X, +Y)
+% DESCRIPTION:
+% checks if X and Y are grandpa and granddaughter and vice versa using facts
+grand_pa_and_da(X, Y):- man(X), parent(X, Z), parent(Z, Y), woman(Y), true.
+grand_pa_and_da(Y, X):- woman(Y), parent(Z, Y), parent(X, Z), man(X), true.
+
+
+% grand_pa_and_da_ver2(+X, +Y)
+% DESCRIPTION:
+% checks if X and Y are grandpa and granddaughter and vice versa using predicates
+grand_pa_and_da_ver2(X, Y):- wife(Z,X), grand_ma(Z,Y), woman(Y), true.
+grand_pa_and_da_ver2(Y, X):- woman(Y), grand_ma(Z,Y), wife(Z,X), true.
+

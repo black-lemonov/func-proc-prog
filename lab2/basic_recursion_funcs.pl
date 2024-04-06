@@ -136,3 +136,24 @@ max_digit_not_mod3_down_(N, CurMax, Max):-
 	NewN is N // 10, I is N mod 10, max(CurMax, I, 0, NewMax),
 	max_digit_not_mod3_down_(NewN, NewMax, Max).
 
+
+% count_divs_up(+N, -Count)
+% counts N dividers (including 1 and itself)
+count_divs_up(N, Count):- count_divs_up_(N, 1, Count).
+count_divs_up_(N, N, 1).
+count_divs_up_(N, Div, Count):- 
+	NewDiv is Div + 1, N mod Div =:= 0, count_divs_up_(N, NewDiv, NewCount), Count is NewCount + 1.
+count_divs_up_(N, Div, Count):- 
+	NewDiv is Div + 1, count_divs_up_(N, NewDiv, NewCount), Count is NewCount.
+
+
+% count_divs_down(+N, -Count)
+% counts N dividers (including 1 and itself)
+count_divs_down(N, Count):- count_divs_down_(N, 1, 1, Count).
+count_divs_down_(N, N, CurCount, CurCount).
+count_divs_down_(N, Div, CurCount, Count):-
+	N mod Div =:= 0, NewCount is CurCount + 1, NewDiv is Div + 1,
+	count_divs_down_(N, NewDiv, NewCount, Count).
+count_divs_down_(N, Div, CurCount, Count):-
+	NewDiv is Div + 1, count_divs_down_(N, NewDiv, CurCount, Count).
+	

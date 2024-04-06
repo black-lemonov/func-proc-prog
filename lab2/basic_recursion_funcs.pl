@@ -95,3 +95,21 @@ rm_w_sum_digits([El|Tail], Sum, List):-
 	sum_digits_up(El, CurSum), CurSum \== Sum,
 	rm_w_sum_digits(Tail, Sum, NewList), List = [El|NewList].
 
+
+% prod_digits_up(+N, ?Prod)
+% finds N digits product
+% or checks if it is equal to Prod 
+prod_digits_up(0, 1):- !.
+prod_digits_up(N, Prod):-
+	NewN is N // 10, I is N mod 10, prod_digits_up(NewN, NewProd),
+	Prod is NewProd * I.  
+
+
+% prod_digits_down(+N, -Prod)
+% finds N digits product
+prod_digits_down(N, Prod):- prod_digits_down_(N, 1, Prod).
+prod_digits_down_(0, CurProd, CurProd).
+prod_digits_down_(N, CurProd, Prod):-
+	NewN is N // 10, I is N mod 10, NewProd is CurProd * I,
+	prod_digits_down_(NewN, NewProd, Prod). 
+

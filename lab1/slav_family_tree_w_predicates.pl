@@ -173,3 +173,28 @@ grand_pa_and_da(Y, X):- woman(Y), parent(Z, Y), parent(X, Z), man(X), true.
 grand_pa_and_da_ver2(X, Y):- wife(Z,X), grand_ma(Z,Y), woman(Y), true.
 grand_pa_and_da_ver2(Y, X):- woman(Y), grand_ma(Z,Y), wife(Z,X), true.
 
+
+% niece(?X, +Y)
+% DESCRIPTION:
+% checks if X is Y's niece using facts
+% or finds Y's niece
+niece(X, Y):- parent(Z,Y), woman(Z), parent(Z,W), Y\==W, parent(W,X), woman(X), true.
+
+
+% niece_ver2(?X, +Y)
+% DESCRIPTION:
+% checks if X is Y's niece using predicates
+% or finds Y's niece
+niece_ver2(X, Y):- b_s(Z, Y), parent(Z, X), woman(X), true.
+
+
+% nieces(+Y)
+% DESCRIPTION:
+% writes all Y's nieces using facts
+nieces(Y):- niece(X,Y), write(X), nl, fail.
+
+
+% nieces_ver2(+Y)
+% DESCRIPTION:
+% writes all Y's nieces using predicates
+nieces_ver2(Y):- niece_ver2(X,Y), write(X), nl, fail.

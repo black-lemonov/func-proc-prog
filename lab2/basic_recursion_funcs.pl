@@ -38,3 +38,12 @@ sum_digits_down_(N, CurSum, X):-
 	N1 is N // 10, Add is N mod 10, NewSum is CurSum + Add,
 	sum_digits_down_(N1, NewSum, X).
 
+
+% square_free(+N)
+% checks if number isn't divided
+% by any square except itsel 
+square_free(N):- square_free_(N, 2).
+square_free_(N, CurX):- Sqr is CurX * CurX, N < Sqr, !.
+square_free_(N, CurX):- Sqr is CurX * CurX, N mod Sqr =:= 0, !, fail.
+square_free_(N, CurX):-
+	Sqr is CurX * CurX, NewX is CurX + 1, square_free_(N, NewX).

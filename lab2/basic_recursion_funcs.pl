@@ -46,7 +46,7 @@ square_free(N):- square_free_(N, 2).
 square_free_(N, CurX):- Sqr is CurX * CurX, N < Sqr, !.
 square_free_(N, CurX):- Sqr is CurX * CurX, N mod Sqr =:= 0, !, fail.
 square_free_(N, CurX):-
-	Sqr is CurX * CurX, NewX is CurX + 1, square_free_(N, NewX).
+	NewX is CurX + 1, square_free_(N, NewX).
 
 % read_list(+N, -X)
 % N is list length
@@ -191,3 +191,13 @@ is_local_min(_, 1):- !, fail.
 is_local_min([L, X, R | _], 2):- !, L > X, R > X.  
 is_local_min([_|T], Index):-
 	NewIndex is Index - 1, is_local_min(T, NewIndex).
+
+
+% find_closest(+List, +R, ?X)
+% finds List closest to R el.
+% or checks if X is the closest to R el.  
+find_closest([H], _, H).
+find_closest([H|T], R, X):-
+	find_closest(T, R, NewX), abs(R-NewX) < abs(R-H), X is NewX, !.
+find_closest([H|_], _, H).
+

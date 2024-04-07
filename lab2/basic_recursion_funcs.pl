@@ -157,6 +157,18 @@ count_divs_down_(N, Div, CurCount, Count):-
 count_divs_down_(N, Div, CurCount, Count):-
 	NewDiv is Div + 1, count_divs_down_(N, NewDiv, CurCount, Count).
 
+% count_matches/0
+% reads two lists, runs count_matches, saves its result in Answer, writes Answer
+count_matches:-
+	write("Task 10: Provided two lists. Find the number of matching values elements."), nl,
+	write("Enter list ¹1 length with a '.' at the end"), nl, read(Len1),
+	write("Enter list ¹1 el-s separated by '.'"), nl, read_list(Len1, List1),
+	write("Enter list ¹2 length with a '.' at the end"), nl, read(Len2),
+	write("Enter list ¹2 el-s separated by '.'"), nl, read_list(Len2, List2),
+	count_matches(List1, List2, Answer),
+	write("Answer:"), nl, write(Answer).
+
+
 
 % count_matches(+List1, +List2, ?Count)
 % count matching el-s in List1 and List2
@@ -177,12 +189,23 @@ in_list(El, [_|T]):- in_list(El, T).
 
 
 % rm_el(+El, +List, ?NewList)
-% removes El from List
+% removes El from List and saves new list in NewList
 % or removes El from List and checks if List equals to NewList
 rm_el(_, [], []).
 rm_el(El, [El|T], T).
 rm_el(El, [H|T], List):-
 	rm_el(El, T, NewList), List = [H|NewList], !.
+
+
+% is_local_min/0
+% reads list and index, checks if el. at index is a local min. of list,
+% returns true or false.
+is_local_min:-
+	write("Task 15: Provided list and natural index. Determine whether the element at the specified index is local minimum."), nl,
+	write("Enter list length with a '.' at the end"), nl, read(Len),
+	write("Enter list el-s separated by '.'"), nl, read_list(Len, List),
+	write("Enter natural index (< list length) with '.' at the end"), nl, read(Index),
+	write("Answer:"), is_local_min(List, Index).
 
 
 % is_local_min(+List, +Index)
@@ -193,8 +216,19 @@ is_local_min([_|T], Index):-
 	NewIndex is Index - 1, is_local_min(T, NewIndex).
 
 
+% find_closest/0
+% reads real number and list, finds the closest to R list el., saves it in Answer, writes Answer  
+find_closest:-
+	write("Task 35: Provided real number R and list. Find the closest to R list element."), nl,
+	write("Enter number R with '.' at the end"), nl, read(R),
+	write("Enter list length with a '.' at the end"), nl, read(Len),
+	write("Enter list el-s separated by '.'"), nl, read_list(Len, List),
+	find_closest(List, R, Answer),
+	write("Answer:"), nl, write(Answer).
+
+
 % find_closest(+List, +R, ?X)
-% finds List closest to R el.
+% finds List closest to R el. and saves it in X
 % or checks if X is the closest to R el.  
 find_closest([H], _, H).
 find_closest([H|T], R, X):-

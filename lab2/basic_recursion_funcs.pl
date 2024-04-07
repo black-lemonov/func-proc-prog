@@ -185,3 +185,9 @@ rm_el(El, [H|T], List):-
 	rm_el(El, T, NewList), List = [H|NewList], !.
 
 
+% is_local_min(+List, +Index)
+% checks if List el. with index = Index is local min
+is_local_min(_, 1):- !, fail.
+is_local_min([L, X, R | _], 2):- !, L > X, R > X.  
+is_local_min([_|T], Index):-
+	NewIndex is Index - 1, is_local_min(T, NewIndex).

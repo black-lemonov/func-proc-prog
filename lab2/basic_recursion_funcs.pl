@@ -156,4 +156,32 @@ count_divs_down_(N, Div, CurCount, Count):-
 	count_divs_down_(N, NewDiv, NewCount, Count).
 count_divs_down_(N, Div, CurCount, Count):-
 	NewDiv is Div + 1, count_divs_down_(N, NewDiv, CurCount, Count).
-	
+
+
+% count_matches(+List1, +List2, ?Count)
+% count matching el-s in List1 and List2
+% or checks if Count equals to number of matching el-s in lists
+count_matches([], _, 0).
+count_matches([H1|T1], List2, Count):-
+	in_list(H1, List2), rm_el(H1, List2, NewList2),
+	count_matches(T1, NewList2, NewCount), Count is NewCount + 1, !.
+count_matches([_|T1], List2, Count):-
+	count_matches(T1, List2, NewCount), Count is NewCount.
+ 
+
+% in_list(+El, +List)
+% checks if El is in List
+in_list(_, []):- fail.
+in_list(El, [El|_]):- !, true.
+in_list(El, [_|T]):- in_list(El, T).
+
+
+% rm_el(+El, +List, ?NewList)
+% removes El from List
+% or removes El from List and checks if List equals to NewList
+rm_el(_, [], []).
+rm_el(El, [El|T], T).
+rm_el(El, [H|T], List):-
+	rm_el(El, T, NewList), List = [H|NewList], !.
+
+

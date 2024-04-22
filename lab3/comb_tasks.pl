@@ -22,6 +22,15 @@ print_permutations(_, 0, Perm):- write(Perm), nl, !, fail.
 print_permutations(Alphabet, K, Perm):- in_list(Alphabet, El), NewK is K - 1, print_permutations(Alphabet, NewK, [El|Perm]). 
 
 
+% next_combination(+Alphabet, +K, -Comb)
+% unifies Comb with next K lengthed combination of Alphabet el-s 
+
+next_combination(Alphabet, K, Comb):- next_combination(Alphabet, K, [], Comb).
+next_combination(_, 0, Comb, Comb):-!.
+next_combination([El|Tail], K, CurComb, Comb):- NewK is K - 1, next_combination(Tail, NewK, [El|CurComb], Comb).
+next_combination([_|Tail], K, CurComb, Comb):- next_combination(Tail, K, CurComb, Comb).
+
+
 % print_combinations(+Alphabet, +K)
 % prints all K lengthed combinations of Alphabet el-s
 

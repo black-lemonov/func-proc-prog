@@ -94,4 +94,90 @@ public class CombTasks {
             }
         }
     }
+
+
+    /** Prints all words of length k with 3 letters 'a' */
+    public static void allWords3A(char[] alphabet, int n, int k) {
+
+        char[] newAlphabet = new char[n];
+        int newN = 0;
+        for (int i = 0; i < n; i++) {
+            if (alphabet[i] != 'a') {
+                newAlphabet[newN] = alphabet[i];
+                newN++;
+            }
+        }
+        alphabet = newAlphabet;
+        n = newN;
+
+        int combK = 3;
+        int permK = k - 3;
+
+        int[] combIndices = new int[combK];
+        int[] permIndices = new int[permK];
+
+        for (int i = 0; i < combK; i++) combIndices[i] = i;
+
+        int combI = 0, permI = 0, counter = 1;
+
+        boolean permIsOver = false;
+
+        while (true) {
+            if (combI == combK - 1) {
+
+                // start making permutations
+                Arrays.fill(permIndices, 0);
+                while (! permIsOver) {
+                    if (permI == permK - 1) {
+
+                        System.out.printf("%d: ", counter++);
+                        for (int i = 0, c = 0, p = 0; i < k; i++) {
+                            if (c < 3 && i == combIndices[c]) {
+                                System.out.print('a');
+                                c++;
+                            } else {
+                                System.out.print(alphabet[permIndices[p]]);
+                                p++;
+                            }
+                        }
+                        System.out.println();
+
+                        while (permIndices[permI] == n - 1) {
+                            if (permI == 0) {
+                                permIsOver = true;
+                                break;
+                            };
+                            permIndices[permI] = 0;
+                            permI--;
+                        }
+
+                        permIndices[permI] ++;
+
+                        permI = 0;
+
+                    } else {
+                        permI++;
+                    }
+                }
+                // stop making permutations
+                permIsOver = false;
+
+                // new combination
+                while ( (k - 1 - (combIndices[combI] + 1)) < (combK - 1 - combI) ) {
+                    if (combI == 0) return;
+                    combI--;
+                }
+
+                combIndices[combI]++;
+
+                int newEl = combIndices[combI];
+                for (int j = combI+1; j < combK; j++) combIndices[j] = ++newEl;
+
+                combI = 0;
+
+            } else {
+                combI++;
+            }
+        }
+    }
 }

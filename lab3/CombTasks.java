@@ -45,4 +45,53 @@ public class CombTasks {
             }
         }
     }
+
+
+    /** Prints all k length combinations of alphabet el-s
+     * (recursive function) */
+    public static void allCombinations(char[] alphabet, int n, int k, int alphLen, int combLen, char[] comb) {
+        if (k == combLen) {
+            System.out.println(comb);
+            return;
+        }
+
+        for (int i = n - alphLen; i < n; i++) {
+            comb[combLen] = alphabet[i];
+            allCombinations(alphabet, n, k, alphLen - i - 1, combLen + 1, comb);
+        }
+    }
+
+
+    /** Prints all k length combinations of alphabet el-s
+     * (not recursive function) */
+    public static void allCombinations(char[] alphabet, int n, int k) {
+        int[] combIndices = new int[k];
+
+        for (int i = 0; i < k; i++) combIndices[i] = i;
+
+        int i = 0, counter = 1;
+        while (true) {
+            if (i == k - 1) {
+
+                System.out.printf("%d: ", counter++);
+                for (int j : combIndices) System.out.print(alphabet[j]);
+                System.out.println();
+
+                while ( (n - 1 - (combIndices[i] + 1)) < (k - 1 - i) ) {
+                    if (i == 0) return;
+                    i--;
+                }
+
+                combIndices[i]++;
+
+                int newEl = combIndices[i];
+                for (int j = i+1; j < k; j++) combIndices[j] = ++newEl;
+
+                i = 0;
+
+            } else {
+                i++;
+            }
+        }
+    }
 }

@@ -1,5 +1,5 @@
 
-% read_file(+StrList)
+% read_file(-StrList)
 % converts input to list of lines sep-d with '\n'
 
 read_file(StrList):-
@@ -32,7 +32,7 @@ open_file(FilePath) :-
     nl.
 
 
-% max_length_ofList(+StrList, +MaxLen)
+% max_length_ofList(+StrList, -MaxLen)
 % finds max length of list el-s
 
 max_length_of_list(StrList, MaxLen):-
@@ -46,7 +46,7 @@ max_length_of_list([Line|RestLines], CurMaxLen, MaxLen):-
     max_length_of_list(RestLines, NewCurMaxLen, MaxLen).
 
 
-% count_els_w_no_spaces(+strList, +Counter)
+% count_els_w_no_spaces(+strList, -Counter)
 % counts list el-s with no spaces
 
 count_els_w_no_spaces(StrList, Counter):-
@@ -65,7 +65,7 @@ count_els_w_no_spaces([_|RestEls], CurCounter, Counter):-
     count_els_w_no_spaces(RestEls, CurCounter, Counter).
 
 
-% count(+String, +El, +Count)
+% count(+String, +El, -Count)
 % count El in List
 
 count(String, El, Count) :-
@@ -82,3 +82,44 @@ count([Char|RestChars], El, CurCount, Count):-
 
 count([_|RestChars], El, CurCount, Count):-
     count(RestChars, El, CurCount, Count).
+
+
+% average_in_list(+StrList, +El, -Avg) 
+% finds average number of El in list
+
+average_in_list(StrList, El, Avg):- 
+    length(StrList, ListLen),
+    atomics_to_string(StrList, ListToStr),
+    count(ListToStr, El, CountA),
+    Avg is CountA // ListLen.
+
+
+% more_than_avg(+StrList, +El, -ResList)
+% saves lines in which the element
+% appears more times than average
+
+more_than_avg(StrList, El, ResList):-
+    average_in_list(StrList, El, Avg),
+    more_than_avg(StrList, El, Avg, [], ResList).
+
+more_than_avg([], _, _, CurResList, CurResList).
+
+more_than_avg([CurEl | RestEls], El, Avg, CurResList, ResList):-
+    count(CurEl, El, CurCount),
+    CurCount > Avg,
+    more_than_avg(RestEls, El, Avg, [CurEl|CurResList], ResList),
+    !.
+
+more_than_avg([_ | RestEls], El, Avg, CurResList, ResList):-
+    more_than_avg(RestEls, El, Avg, CurResList, ResList).
+
+
+% write_list(+List)
+% writes list
+
+write_list([]).
+
+write_list([El|RestEls]):-
+    write(El),
+    nl,
+    write_list(RestEls).

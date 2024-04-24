@@ -1,4 +1,13 @@
 
+% max(+X, +Y, -Max)
+% finds max value from 2 values
+
+max(X, Y, Max):-
+    X > Y,
+    Max is X.
+
+max(_, Y, Y).
+
 % read_file(-StrList)
 % converts input to list of lines sep-d with '\n'
 
@@ -38,7 +47,16 @@ open_file(FilePath) :-
     find_most_freq_el(FileStrList, MostFreqEl),
     write(MostFreqEl),
     nl,
-    seen.
+    seen,
+    write("2.5 Write file path: "),
+    read(NewFilePath),
+    tell(NewFilePath),
+    list_to_words(FileStrList, FileWordsList),
+    unique(FileWordsList, UniWordsList),
+    write_list(UniWordsList),
+    told,
+    nl,
+    write("Written successfully!").
 
 
 % max_length_ofList(+StrList, -MaxLen)
@@ -185,3 +203,21 @@ find_most_freq_el([El|_], WordsList, MaxFreq, MostFreqEl):-
 
 find_most_freq_el([_|RestEls], WordsList, MaxFreq, MostFreqEl):-
     find_most_freq_el(RestEls, WordsList, MaxFreq, MostFreqEl).
+
+
+% unique(+List, -NewList)
+% makes list of unique values 
+
+unique(List, NewList):-
+    unique(List, List, [], NewList).
+
+unique([], _, CurList, CurList).
+
+unique([El|RestEls], List, CurList, NewList):-
+    count(List, El, 0, ElCount),
+    ElCount == 1,
+    unique(RestEls, List, [El|CurList], NewList),
+    !.
+
+unique([_|RestEls], List, CurList, NewList):-
+    unique(RestEls, List, CurList, NewList).

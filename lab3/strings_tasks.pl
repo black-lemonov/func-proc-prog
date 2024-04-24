@@ -29,7 +29,16 @@ open_file(FilePath) :-
     write("2.2 Lines without spaces = "),
     count_els_w_no_spaces(FileStrList, CountElsWNoSpaces),
     write(CountElsWNoSpaces),
-    nl.
+    nl,
+    write("2.3 Lines with more 'a' than average: "),
+    nl,
+    more_than_avg(FileStrList, 'a', ResList),
+    write_list(ResList),
+    write("2.4 Most frequent word is "),
+    find_most_freq_el(FileStrList, MostFreqEl),
+    write(MostFreqEl),
+    nl,
+    seen.
 
 
 % max_length_ofList(+StrList, -MaxLen)
@@ -123,3 +132,56 @@ write_list([El|RestEls]):-
     write(El),
     nl,
     write_list(RestEls).
+
+
+% list_to_words(+StrList, -WordsList)
+% splits lines into el-s and saves them in one list
+
+list_to_words(StrList, WordsList):-
+    list_to_words(StrList, [], WordsList).
+
+list_to_words([], CurWordsList, CurWordsList).
+
+list_to_words([CurLine|RestLines], CurWordsList, WordsList):-
+    split_string(CurLine, " ", " ", CurLineWordsList),
+    append(CurWordsList, CurLineWordsList, NewCurWordsList),
+    list_to_words(RestLines, NewCurWordsList, WordsList).
+
+
+% count_most_freq_el(+StrList, -MaxCount)
+% finds most frequent occurrence of the el-s
+% in the list
+
+count_most_freq_el(StrList, MaxCount):-
+    list_to_words(StrList, WordsList),
+    count_most_freq_el(WordsList, WordsList, 0, MaxCount).
+
+count_most_freq_el([], _, CurMaxCount, CurMaxCount).
+
+count_most_freq_el([El|RestEls], List, CurMaxCount, MaxCount):-
+    count(List, El, 0, CurElCount),
+    CurMaxCount < CurElCount,
+    count_most_freq_el(RestEls, List, CurElCount, MaxCount),
+    !.
+
+count_most_freq_el([_|RestEls], List, CurMaxCount, MaxCount):-
+    count_most_freq_el(RestEls, List, CurMaxCount, MaxCount).
+
+
+% find_most_freq_el(+StrList, -MostFreqEl)
+% finds which el occurs most frequently 
+% in the list
+
+find_most_freq_el(StrList, MostFreqEl):-
+    count_most_freq_el(StrList, MaxFreq),
+    list_to_words(StrList, WordsList),
+    find_most_freq_el(WordsList, WordsList, MaxFreq, MostFreqEl).
+
+find_most_freq_el([El|_], WordsList, MaxFreq, MostFreqEl):-
+    count(WordsList, El, 0, CurElFreq),
+    CurElFreq == MaxFreq,
+    MostFreqEl = El,
+    !.
+
+find_most_freq_el([_|RestEls], WordsList, MaxFreq, MostFreqEl):-
+    find_most_freq_el(RestEls, WordsList, MaxFreq, MostFreqEl).

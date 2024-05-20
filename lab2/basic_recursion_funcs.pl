@@ -235,3 +235,79 @@ find_closest([H|T], R, X):-
 	find_closest(T, R, NewX), abs(R-NewX) < abs(R-H), X is NewX, !.
 find_closest([H|_], _, H).
 
+
+% count_not_coprime_evens/0 - найти кол-во чет. чисел не взаимно простых с данным
+count_not_coprime_evens:-
+	write("Write a number X ended with '.' = "), read(X),
+	write("The number of not coprime even numbers is "),
+	count_not_coprime_evens(X, Answer),
+	write(Answer), nl,
+	write("The result of multiplication"), nl,
+	write("of max not coprime to X number"), nl,
+	write("not dividable by min X divider"), nl,
+	max_not_coprime_to(X, Max),
+	write("greater than 1 that equals to "), write(Max), nl,
+	sum_digits_less_5(X, Sum),
+	write("and sum of X digits greater than 5 that equals to "), write(Sum), nl,
+	write("is "), Mult is Max * Sum, write(Mult), nl.
+  
+
+% count_not_coprime_evens(+X, ?Count)
+% считает кол-во не взаимно простых четных чисел в Count или сравнивает его с Count
+count_not_coprime_evens(X, Count):- count_not_coprime_evens(X, 2, Count).
+count_not_coprime_evens(X, CurDiv, 0):- CurDiv > X, !.
+count_not_coprime_evens(X, CurDiv, Count):-
+	nod(X, CurDiv, 1), !, 
+	NewDiv is CurDiv + 2,
+	count_not_coprime_evens(X, NewDiv, Count).
+count_not_coprime_evens(X, CurDiv, Count):-
+	NewDiv is CurDiv + 2,
+	count_not_coprime_evens(X, NewDiv, NewCount),
+	Count is NewCount + 1.
+
+
+% max_not_coprime_to(+X, ?Max)
+% находит макс. число не взаимно простое с данным не делящееся на наим. дел. X или проверяет является ли Max таким числом
+max_not_coprime_to(X, Max):- NewX is X - 1, max_not_coprime_to(X, NewX, Max).
+max_not_coprime_to(_, 1, _):- !, fail.
+max_not_coprime_to(X, CurDiv, Max):- 
+	nod(X, CurDiv, 1), !,
+	NewDiv is CurDiv - 1,
+	max_not_coprime_to(X, NewDiv, Max).
+max_not_coprime_to(X, CurDiv, CurDiv):-
+	find_min_div(X, MinDiv),
+	0 =\= CurDiv mod MinDiv, !.
+max_not_coprime_to(X, CurDiv, Max):- 
+	NewDiv is CurDiv - 1,
+	max_not_coprime_to(X, NewDiv, Max).
+
+
+ % nod(+A, +B, ?C)
+ % находит НОД(A, B) и сохраняет его в C
+ % или проверяет что C является НОД(A, B) 
+nod(A, 0, A):- !.
+nod(_, 0, _):- !, fail.
+nod(A, B, C):- Ost is A mod B, nod(B, Ost, C).
+
+% find_min_div(+X, -Min)
+% находит минимальный делитель > 1
+find_min_div(X, Min):- find_min_div(X, 2, Min).
+find_min_div(1, _, 1):-!.
+find_min_div(X, CurDiv, CurDiv):- 0 =:= X mod CurDiv, !.
+find_min_div(X, CurDiv, Min):-
+	NewDiv is CurDiv + 1,
+	find_min_div(X, NewDiv, Min).
+
+
+% sum_digits_less_5(+X, ?Sum)
+% находит сумму цифр числа меньших 5
+sum_digits_less_5(0, 0):- !.
+sum_digits_less_5(X, Sum):-
+	Add is X mod 10,
+	Add < 5, !,
+	NewX is X // 10,
+	sum_digits_less_5(NewX, NewSum),
+	Sum is NewSum + Add.
+sum_digits_less_5(X, Sum):-
+	NewX is X // 10,
+	sum_digits_less_5(NewX, Sum).

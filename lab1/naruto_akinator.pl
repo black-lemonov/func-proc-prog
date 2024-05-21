@@ -103,11 +103,11 @@ kekkei(sakura, 6).
 kekkei(hinata, 5).
 kekkei(tenten, 6).
 
-organization(itachi, akatsuki).
-organization(hidan, akatsuki).
-organization(kisame, akatsuki).
-organization(sai, anbu).
-organization(deidara, akatsuki).
+organization(itachi, 1).
+organization(hidan, 1).
+organization(kisame, 1).
+organization(sai, 2).
+organization(deidara, 1).
 
 
 question1(X1):- write("What's your character rank?"), nl,
@@ -159,7 +159,39 @@ question5(X5):- write("What's your character's blood-inherited power?"), nl,
 				write("6. none"), nl,
 				read(X5).
 
+question6(X6):- write("What organization is your character a member of?"),
+			   write("1. akatsuki"), nl,
+			   write("2. anbu"), nl,
+			   write("3. none"), nl,
+			   read(X6).
 
-pr:-	question1(X1),question2(X2),question3(X3),question4(X4), question5(X5),
-		rank(X, X1), village(X, X2), jutsu(X, X3), element(X, X4), kekkei(X, X5),
-		write(X).
+
+% in_list(+List, +El)
+% проверяет наличие El в List
+in_list([E|_], E):- !, true.
+in_list([_|T], E):- in_list(T, E).
+
+
+not_last(Matches):- length(Matches, 1), !, [Answer | _] = Matches, write(Answer), nl, !, fail.
+not_last(_):- !, true.
+
+
+pr:-	
+	question1(X1), findall(X, rank(X, X1), Matches1), not_last(Matches1),
+	question2(X2), findall(X, village(X, X2), Matches2), not_last(Matches2),
+	question3(X3), findall(X, jutsu(X, X3), Matches3), not_last(Matches3),
+	question4(X4), findall(X, element(X, X4), Matches4), not_last(Matches4),
+	question5(X5), findall(X, kekkei(X, X5), Matches5), not_last(Matches5),
+
+	
+	(
+		in_list(Matches5, zabuza),
+		in_list(Matches5, kisame)
+		-> 
+		question6(X6),
+		findall(X, organization(X, X6), Matches6),
+		not_last(Matches6), true
+		;
+		write("Sorry, I can't guess this character ;("), nl,
+		fail
+	).

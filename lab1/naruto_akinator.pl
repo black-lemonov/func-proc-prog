@@ -18,6 +18,7 @@ rank(deidara, 3).
 rank(sakura, 2).
 rank(hinata, 2).
 rank(tenten, 2).
+rank(neji, 2).
 
 village(naruto, 1).
 village(kiba, 1).
@@ -39,6 +40,7 @@ village(deidara, 3).
 village(sakura, 1).
 village(hinata, 1).
 village(tenten, 1).
+village(neji, 1).
 
 jutsu(naruto, 1).
 jutsu(kiba, 1).
@@ -60,6 +62,10 @@ jutsu(deidara, 1).
 jutsu(sakura, 7).
 jutsu(hinata, 6).
 jutsu(tenten, 8).
+jutsu(neji, 6).
+
+branch(hinata, 1).
+branch(neji, 2).
 
 element(naruto, 1).
 element(kiba, 5).
@@ -81,6 +87,7 @@ element(deidara, 6).
 element(sakura, 6).
 element(hinata, 1).
 element(tenten, 1).
+element(neji, 1).
 
 kekkei(naruto, 3).
 kekkei(kiba, 6).
@@ -102,11 +109,13 @@ kekkei(deidara, 4).
 kekkei(sakura, 6).
 kekkei(hinata, 5).
 kekkei(tenten, 6).
+kekkei(neji, 5).
 
 organization(itachi, 1).
 organization(hidan, 1).
 organization(kisame, 1).
 organization(sai, 2).
+organization(suigetsu, 3).
 organization(deidara, 1).
 
 
@@ -159,11 +168,17 @@ question5(X5):- write("What's your character's blood-inherited power?"), nl,
 				write("6. none"), nl,
 				read(X5).
 
-question6(X6):- write("What organization is your character a member of?"),
+question6(X6):- write("What organization is your character a member of?"), nl,
 			   write("1. akatsuki"), nl,
 			   write("2. anbu"), nl,
-			   write("3. none"), nl,
+			   write("3. hebi"), nl,
+			   write("4. none"), nl,
 			   read(X6).
+
+question7(X7):- write("Is your character from the main branch of the clan?"), nl,
+			    write("1. yes"), nl,
+			    write("2. no"), nl,
+			    read(X7).
 
 
 % in_list(+List, +El)
@@ -177,11 +192,21 @@ not_last(_):- !, true.
 
 
 pr:-	
-	question1(X1), findall(X, rank(X, X1), Matches1), not_last(Matches1),
-	question2(X2), findall(X, village(X, X2), Matches2), not_last(Matches2),
-	question3(X3), findall(X, jutsu(X, X3), Matches3), not_last(Matches3),
-	question4(X4), findall(X, element(X, X4), Matches4), not_last(Matches4),
-	question5(X5), findall(X, kekkei(X, X5), Matches5), not_last(Matches5),
+	question1(X1), findall(X, (rank(X, X1)), Matches1), not_last(Matches1),
+	question2(X2), findall(X, (rank(X, X1), village(X, X2)), Matches2), not_last(Matches2),
+	question3(X3), findall(X, (rank(X, X1), village(X, X2), jutsu(X, X3)), Matches3), not_last(Matches3),
+	
+	(
+		in_list(Matches3, hinata),
+		in_list(Matches3, neji)
+		-> 
+		question7(X7),
+		findall(X, branch(X, X7), Matches7),
+		not_last(Matches7)
+	),
+
+	question4(X4), findall(X, (rank(X, X1), village(X, X2), jutsu(X, X3), element(X, X4)), Matches4), not_last(Matches4),
+	question5(X5), findall(X, (rank(X, X1), village(X, X2), jutsu(X, X3), element(X, X4), kekkei(X, X5)), Matches5), not_last(Matches5),
 
 	
 	(

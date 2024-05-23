@@ -58,13 +58,13 @@ class BasicRecursionKtTest {
         assertEquals(8, main.sumDigits(404))
     }
 
-    @Test fun multDigits() {
+    @Test fun prodDigits() {
         val main = BasicRecursion();
-        assertEquals(1, main.multDigits(11111))
-        assertEquals(56, main.multDigits(781))
-        assertEquals(256, main.multDigits(1488))
-        assertEquals(0, main.multDigits(420))
-        assertEquals(16, main.multDigits(414))
+        assertEquals(1, main.prodDigits(11111))
+        assertEquals(56, main.prodDigits(781))
+        assertEquals(256, main.prodDigits(1488))
+        assertEquals(0, main.prodDigits(420))
+        assertEquals(16, main.prodDigits(414))
     }
 
     @Test fun minDigit() {
@@ -97,5 +97,32 @@ class BasicRecursionKtTest {
         assertEquals(24, main.getFunc(false)(4))
         assertEquals(120, main.getFunc(false)(5))
         assertEquals(720, main.getFunc(false)(6))
+    }
+
+    @Test fun prodDigitsLoop() {
+        val main = BasicRecursion();
+        assertEquals(1, main.prodDigitsLoop(11111))
+        assertEquals(56, main.prodDigitsLoop(781))
+        assertEquals(256, main.prodDigitsLoop(1488))
+        assertEquals(0, main.prodDigitsLoop(420))
+        assertEquals(16, main.prodDigitsLoop(414))
+    }
+
+    @Test fun maxNotDivBy3() {
+        val main = BasicRecursion();
+        assertEquals(7, main.maxNotDivBy3(1234567))
+        assertEquals(0, main.maxNotDivBy3(369))
+        assertEquals(1, main.maxNotDivBy3(999991))
+        assertEquals(2, main.maxNotDivBy3(323232))
+        assertEquals(1, main.maxNotDivBy3(1))
+    }
+
+    @Test fun countDivs() {
+        val main = BasicRecursion()
+        assertEquals(2, main.countDivs(13))
+        assertEquals(1, main.countDivs(1))
+        assertEquals(4, main.countDivs(10))
+        assertEquals(30, main.countDivs(720))
+        assertEquals(0, main.countDivs(0))
     }
 }

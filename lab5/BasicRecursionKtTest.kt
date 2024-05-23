@@ -108,6 +108,24 @@ class BasicRecursionKtTest {
         assertEquals(16, main.prodDigitsLoop(414))
     }
 
+    @Test fun prodDigitsUp() {
+        val main = BasicRecursion();
+        assertEquals(1, main.prodDigitsUp(11111))
+        assertEquals(56, main.prodDigitsUp(781))
+        assertEquals(256, main.prodDigitsUp(1488))
+        assertEquals(0, main.prodDigitsUp(420))
+        assertEquals(16, main.prodDigitsUp(414))
+    }
+
+    @Test fun prodDigitsDown() {
+        val main = BasicRecursion();
+        assertEquals(1, main.prodDigitsDown(11111))
+        assertEquals(56, main.prodDigitsDown(781))
+        assertEquals(256, main.prodDigitsDown(1488))
+        assertEquals(0, main.prodDigitsDown(420))
+        assertEquals(16, main.prodDigitsDown(414))
+    }
+
     @Test fun maxNotDivBy3() {
         val main = BasicRecursion();
         assertEquals(7, main.maxNotDivBy3(1234567))
@@ -117,6 +135,24 @@ class BasicRecursionKtTest {
         assertEquals(1, main.maxNotDivBy3(1))
     }
 
+    @Test fun maxNotDivBy3Up() {
+        val main = BasicRecursion();
+        assertEquals(7, main.maxNotDivBy3Up(1234567))
+        assertEquals(0, main.maxNotDivBy3Up(369))
+        assertEquals(1, main.maxNotDivBy3Up(999991))
+        assertEquals(2, main.maxNotDivBy3Up(323232))
+        assertEquals(1, main.maxNotDivBy3Up(1))
+    }
+
+    @Test fun maxNotDivBy3Down() {
+        val main = BasicRecursion();
+        assertEquals(7, main.maxNotDivBy3Down(1234567))
+        assertEquals(0, main.maxNotDivBy3Down(369))
+        assertEquals(1, main.maxNotDivBy3Down(999991))
+        assertEquals(2, main.maxNotDivBy3Down(323232))
+        assertEquals(1, main.maxNotDivBy3Down(1))
+    }
+
     @Test fun countDivs() {
         val main = BasicRecursion()
         assertEquals(2, main.countDivs(13))
@@ -124,5 +160,23 @@ class BasicRecursionKtTest {
         assertEquals(4, main.countDivs(10))
         assertEquals(30, main.countDivs(720))
         assertEquals(0, main.countDivs(0))
+    }
+
+    @Test fun countDivsUp() {
+        val main = BasicRecursion()
+        assertEquals(2, main.countDivsUp(13))
+        assertEquals(1, main.countDivsUp(1))
+        assertEquals(4, main.countDivsUp(10))
+        assertEquals(30, main.countDivsUp(720))
+        assertEquals(0, main.countDivsUp(0))
+    }
+
+    @Test fun countDivsDown() {
+        val main = BasicRecursion()
+        assertEquals(2, main.countDivsDown(13))
+        assertEquals(1, main.countDivsDown(1))
+        assertEquals(4, main.countDivsDown(10))
+        assertEquals(30, main.countDivsDown(720))
+        assertEquals(0, main.countDivsDown(0))
     }
 }

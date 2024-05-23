@@ -1,4 +1,4 @@
-import kotlin.math.tan
+import kotlin.reflect.KFunction
 
 class BasicRecursion {
 
@@ -237,7 +237,36 @@ class BasicRecursion {
          }
     }
 
+    /**
+     * Возвращает функцию по имени
+     */
+    fun getFuncByName(name: String): (Int)->Int? {
+        val funcs = mapOf(
+            "prodDigitsLoop" to ::prodDigitsLoop,
+            "prodDigitsUp" to ::prodDigitsUp,
+            "prodDigitsDown" to ::prodDigitsDown,
+            "maxNotDivBy3" to ::maxNotDivBy3,
+            "maxNotDivBy3Up" to ::maxNotDivBy3Up,
+            "maxNotDivBy3Down" to ::maxNotDivBy3Down,
+            "countDivs" to ::countDivs,
+            "countDivsUp" to ::countDivsUp,
+            "countDivsDown" to ::countDivsDown
+        )
+
+        return {n: Int -> funcs[name]?.call(n)}
+    }
+
+
+
     fun main() {
+
+        val prod = getFuncByName("prodDigitsUp")
+        val count = getFuncByName("countDivs")
+        val maxD = getFuncByName("maxNotDivBy3")
+        println(prod(1234))
+        println(count(720))
+        println(maxD(1237))
+
         println(maxNotDivBy3(123456))
         println(maxNotDivBy3Up(123456))
         println(maxNotDivBy3Down(123456))

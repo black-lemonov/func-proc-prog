@@ -225,6 +225,18 @@ class BasicRecursion {
         return inner(n, d, 0)
     }
 
+    /**
+     * Принимает функции в качестве аргумента
+     * может считать делители, искать макс. цифру в числе и находить произведение цифр числа
+     * (Лаб. 5 задание 4)
+     */
+    fun funcWrapper(vararg funcs: (Int) -> Int) {
+         for (f in funcs) {
+             println("Вызов функции: $f")
+             println("Результат: " + f(readln().toInt()))
+         }
+    }
+
     fun main() {
         println(maxNotDivBy3(123456))
         println(maxNotDivBy3Up(123456))
@@ -237,6 +249,10 @@ class BasicRecursion {
         println(countDivs(720))
         println(countDivsUp(720))
         println(countDivsDown(720))
+
+        funcWrapper(::maxNotDivBy3Up, ::maxNotDivBy3Down, ::maxNotDivBy3)
+        funcWrapper(::prodDigitsLoop, ::prodDigitsDown, ::prodDigitsUp)
+        funcWrapper(::countDivs, ::countDivsDown, ::countDivsUp)
     }
 }
 

@@ -1,10 +1,12 @@
+import kotlin.math.tan
+
 class BasicRecursion {
 
     /**
      * Находит максимум из трех чисел
      * (Лаб. 5 задание 1)
      */
-    fun max(x: Int, y: Int, z: Int): Int {
+    fun max(x: Int, y: Int, z: Int = 0): Int {
         if (x >= y) {
             if (x >= z)
                 return x
@@ -114,6 +116,29 @@ class BasicRecursion {
     }
 
     /**
+     * Считает произведение цифр числа рекурсией вверх
+     * (Лаб. 5 задание 3.1)
+     */
+    fun prodDigitsUp(n: Int): Int {
+        return if (n == 0)
+            1
+        else n % 10 * prodDigitsUp(n / 10)
+    }
+
+    /**
+     * Считает произведение цифр числа рекурсией вниз
+     * (Лаб. 5 задание 3.1)
+     */
+    fun prodDigitsDown(n: Int): Int {
+        tailrec fun prod(n: Int, res: Int): Int {
+            return if (n == 0)
+                res
+            else prod(n / 10, n % 10 * res)
+        }
+        return prod(n, 1)
+    }
+
+    /**
      * Чистая функция
      * находит в числе макс. цифру, не делящуюся на 3
      * если такой цифры нет, возвращает 0
@@ -124,10 +149,39 @@ class BasicRecursion {
         var max = 0
         while (copy != 0) {
             if (copy % 10 % 3 != 0)
-                max = max(max, copy % 10, 0)
+                max = max(max, copy % 10)
             copy /= 10
         }
         return max
+    }
+
+    /**
+     * Находит макс. цифру числа не делящуюся на 3
+     * рекурсией вверх
+     * (Лаб. 5 задание 3.2)
+     */
+    fun maxNotDivBy3Up(n: Int): Int {
+        if (n == 0)
+            return 0
+        if (n % 10 % 3 != 0)
+            return max(n % 10, maxNotDivBy3(n / 10))
+        return maxNotDivBy3(n / 10)
+    }
+
+    /**
+     * Находит макс. цифру числа не делящуюся на 3
+     * рекурсией вниз
+     * (Лаб. 5 задание 3.2)
+     */
+    fun maxNotDivBy3Down(n: Int): Int {
+        tailrec fun inner(n: Int, res: Int ): Int {
+            if (n == 0)
+                return res
+            if (n % 10 % 3 != 0)
+                return inner(n / 10, max(res, n % 10))
+            return inner(n / 10, res)
+        }
+        return inner(n, 0)
     }
 
     /**
@@ -142,12 +196,47 @@ class BasicRecursion {
         return count
     }
 
+    /**
+     * Считает кол-во делителей числа
+     * рекурсией вверх
+     * (Лаб. 5 задание 3.3)
+     */
+    fun countDivsUp(n: Int, d: Int = 1): Int {
+        if (d > n)
+            return 0
+        if (n % d == 0)
+            return 1 + countDivsUp(n, d + 1)
+        return countDivsUp(n, d + 1)
+    }
+
+    /**
+     * Считает кол-во делителей числа
+     * рекурсией вниз
+     * (Лаб. 5 задание 3.3)
+     */
+    fun countDivsDown(n: Int, d: Int = 1): Int {
+        fun inner(n: Int, d: Int, count: Int): Int {
+            if (d > n)
+                return count
+            if (n % d == 0)
+                return inner(n, d + 1, count + 1)
+            return inner(n, d + 1, count)
+        }
+        return inner(n, d, 0)
+    }
+
     fun main() {
         println(maxNotDivBy3(123456))
-        println(maxNotDivBy3(3006))
+        println(maxNotDivBy3Up(123456))
+        println(maxNotDivBy3Down(123456))
+
         println(prodDigitsLoop(1234))
-        println(countDivs(13))
-        println(countDivs(26))
+        println(prodDigitsUp(1234))
+        println(prodDigitsDown(1234))
+
+        println(countDivs(720))
+        println(countDivsUp(720))
+        println(countDivsDown(720))
     }
 }
 
